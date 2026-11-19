@@ -89,4 +89,13 @@
     gap: 10px;
     pointer-events: none;
   }
+
+  @media (max-width: 768px) {
+    .toast-container {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      align-items: stretch;
+    }
+  }
 </style>

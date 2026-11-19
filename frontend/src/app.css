@@ -717,3 +717,148 @@ body.dark .toggle-overview-btn.active {
   color: var(--color-primary-dark);
   background: var(--color-primary-transparent-dark);
 }
+
+/*
+ * Small screens use the two work areas one above the other. Keeping the file
+ * browser visible avoids forcing a user to scroll back to the top every time
+ * they want to select another track.
+ */
+@media (max-width: 768px) {
+  .container {
+    height: 100dvh;
+    padding: 10px;
+  }
+
+  .split-container {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 88px;
+  }
+
+  .panel {
+    width: 100% !important;
+  }
+
+  .left-panel {
+    flex: 0 0 42%;
+    min-height: 260px;
+  }
+
+  .right-panel {
+    flex: 1 1 0;
+    min-height: 0;
+  }
+
+  .resizer {
+    display: none;
+  }
+
+  .panel-header {
+    min-height: 0;
+    padding: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .panel-header h3 {
+    padding: 6px 0;
+  }
+
+  .header-actions {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .search-container {
+    flex: 1 0 100%;
+    order: 10;
+  }
+
+  .search-input {
+    width: 100%;
+    min-height: 36px;
+    box-sizing: border-box;
+  }
+
+  .panel-content {
+    padding: 10px;
+  }
+
+  .file-tree-panel {
+    padding: 0 !important;
+  }
+
+  .theme-toggle-group {
+    right: 10px;
+    bottom: 96px;
+    gap: 4px;
+  }
+
+  .theme-toggle,
+  .help-toggle,
+  .settings-toggle {
+    min-width: 60px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-actions {
+    gap: 2px;
+  }
+
+  .logout-btn,
+  .create-folder-btn {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 6px;
+  }
+
+  .logout-btn {
+    font-size: 0;
+    gap: 0;
+  }
+
+  .create-folder-btn span,
+  .sort-label {
+    display: none;
+  }
+
+  .sort-btn {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 6px;
+  }
+
+  .direction-btn,
+  .refresh-btn {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .theme-toggle,
+  .help-toggle,
+  .settings-toggle {
+    min-width: 56px;
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 6px;
+  }
+
+  .theme-toggle-group {
+    right: 6px;
+  }
+
+  .theme-toggle,
+  .help-toggle,
+  .settings-toggle {
+    min-width: 52px;
+    padding: 7px 5px;
+    font-size: 11px;
+  }
+}

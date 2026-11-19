@@ -459,6 +459,14 @@
     color: #8c8c8c;
   }
 
+  @media (max-width: 768px) {
+    .upload-tray {
+      right: 10px;
+      bottom: 94px;
+      width: calc(100vw - 20px);
+    }
+  }
+
   :global(body.dark) .upload-tray {
     background: #2a2a2a;
     color: #e0e0e0;

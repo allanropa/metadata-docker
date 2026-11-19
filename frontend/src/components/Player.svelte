@@ -689,4 +689,42 @@
   :global(body.dark) .player-disabled .progress {
     background: #666;
   }
+
+  @media (max-width: 768px) {
+    .player {
+      padding: 0 12px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: 26px 46px;
+      height: 72px;
+      column-gap: 12px;
+    }
+
+    .filename {
+      grid-column: 1 / -1;
+      padding-right: 0;
+      align-self: center;
+    }
+
+    .play-btn {
+      grid-column: 1;
+      grid-row: 2;
+      width: 36px;
+      height: 36px;
+    }
+
+    .time-volume {
+      grid-column: 2;
+      grid-row: 2;
+      padding-left: 0;
+      align-self: center;
+    }
+
+    .time {
+      margin-bottom: 2px;
+    }
+  }
 </style>
