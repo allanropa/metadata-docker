@@ -753,6 +753,7 @@ body.dark .toggle-overview-btn.active {
 
   .panel.mobile-collapsed {
     flex: 0 0 auto;
+    height: auto;
     min-height: 0;
   }
 
