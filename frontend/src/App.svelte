@@ -139,6 +139,8 @@
   // UI states
   let leftPanelWidth = $state(50); // percentage
   let isResizing = $state(false);
+  let isMobileTreeCollapsed = $state(false);
+  let isMobileEditorCollapsed = $state(false);
 
   // Player-related state variables
   let audioFile = $state(/** @type {AudioFile | null} */ (null));
@@ -1272,6 +1274,9 @@
   function selectFile(path) {
     selectedFile = path;
     selectedFolder = null;
+    // On a phone, make room for the editor as soon as a file is selected.
+    isMobileTreeCollapsed = true;
+    isMobileEditorCollapsed = false;
   }
 
   /**
@@ -1325,6 +1330,8 @@
   function selectFolder(path) {
     selectedFolder = path;
     selectedFile = null;
+    isMobileTreeCollapsed = true;
+    isMobileEditorCollapsed = false;
   }
 
   // ========== RESIZE HANDLERS ==========
@@ -2433,6 +2440,7 @@
     ondrop={handleDrop}
     onpointerdown={handleTreePointerDown}
     class:dragging={isDragging}
+    class:player-enabled={$settings.enablePlayer}
   >
     <!-- Theme switch, help toggle and settings toggle -->
     <div class="theme-toggle-group">
@@ -2483,7 +2491,11 @@
     <!-- Main split layout -->
     <div class="split-container" class:blurred={isDragging}>
       <!-- Left Panel - Folder Navigation / File Selection -->
-      <div class="panel left-panel" style="width: {leftPanelWidth}%;">
+      <div
+        class="panel left-panel"
+        class:mobile-collapsed={isMobileTreeCollapsed}
+        style="width: {leftPanelWidth}%;"
+      >
         <div class="panel-header">
           <h3>File Browser</h3>
           <div class="header-actions">
@@ -2641,6 +2653,16 @@
               </svg>
             </button>
           </div>
+          <button
+            class="mobile-panel-toggle"
+            onclick={() => (isMobileTreeCollapsed = !isMobileTreeCollapsed)}
+            aria-expanded={!isMobileTreeCollapsed}
+            title={isMobileTreeCollapsed
+              ? "Show file browser"
+              : "Hide file browser"}
+          >
+            {isMobileTreeCollapsed ? "Show" : "Hide"}
+          </button>
         </div>
 
         <div
@@ -2774,6 +2796,7 @@
       <div
         class="panel right-panel"
         bind:this={rightPanel}
+        class:mobile-collapsed={isMobileEditorCollapsed}
         style="width: {100 - leftPanelWidth}%;"
       >
         <div class="panel-header">
@@ -2814,6 +2837,14 @@
               </svg>
             </button>
           {/if}
+          <button
+            class="mobile-panel-toggle"
+            onclick={() => (isMobileEditorCollapsed = !isMobileEditorCollapsed)}
+            aria-expanded={!isMobileEditorCollapsed}
+            title={isMobileEditorCollapsed ? "Show editor" : "Hide editor"}
+          >
+            {isMobileEditorCollapsed ? "Show" : "Hide"}
+          </button>
         </div>
 
         <div class="panel-content">
@@ -2854,15 +2885,16 @@
     </div>
   </div>
 
-  <!-- Player component -->
-  <!-- The lyrics editor keeps the player interactive. -->
-  <div
-    class="player-wrapper"
-    class:blurred={isDragging}
-    data-dialog-companion="true"
-  >
-    <Player {audioFile} bind:this={playerComponent} />
-  </div>
+  {#if $settings.enablePlayer}
+    <!-- The lyrics editor keeps the player interactive. -->
+    <div
+      class="player-wrapper"
+      class:blurred={isDragging}
+      data-dialog-companion="true"
+    >
+      <Player {audioFile} bind:this={playerComponent} />
+    </div>
+  {/if}
   <HelpModal
     isOpen={showHelpModal}
     onClose={() => (showHelpModal = false)}
